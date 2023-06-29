@@ -1,0 +1,32 @@
+with tab as (
+select sales_id,
+	   concat(e.first_name||' '||e.last_name) as name1,
+	   quantity,
+	   p.price,
+	   quantity*price as income,
+	   sale_date,
+	   to_char(sale_date,'day') as weekday,
+	   s.product_id,
+	   p.name
+from sales as s
+	left join products as p 
+	on s.product_id = p.product_id
+	left join employees as e 
+	on s.sales_person_id = e.employee_id
+order by sale_date)
+
+select name1 as name,
+	   weekday,
+	   sum(income)
+from tab
+group by sale_date,weekday,name1
+order by sale_date,weekday,name1;
+	   
+
+
+
+
+
+
+
+
