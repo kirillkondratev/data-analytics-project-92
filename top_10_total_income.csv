@@ -1,23 +1,11 @@
-with tab as (
-select sales_id,
-	   concat(e.first_name||' '||e.last_name) as name1,
-	   quantity,
-	   p.price,
-	   quantity*price as sale_amount,
-	   sale_date,
-	   s.product_id,
-	   p.name
-from sales as s
-	left join products as p 
-	on s.product_id = p.product_id
-	left join employees as e 
-	on s.sales_person_id = e.employee_id
-order by sales_person_id)
-
-select name1 as name,
-	   count(sales_id) as operations,
-	   sum(sale_amount) as income
-from tab
-group by name1
-order by income desc
-limit 10;
+"name","operations","income"
+Dirk Stringer,4192,4925137932.0000
+Michel DeFrance,4688,3260240833.9000
+Albert Ringer,4695,2700327941.1900
+Heather McBadden,4139,1873192318.9100
+Innes del Castillo,4674,1762202127.7200
+Abraham Bennet,9460,1617501169.9900
+Dean Straight,4195,1256032202.1000
+Livia Karsen,2564,1056902108.9200
+Sheryl Hunter,4686,1056767862.5000
+Michael O'Leary,5757,927500459.8300
