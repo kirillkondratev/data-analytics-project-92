@@ -77,3 +77,43 @@ from tab
 group by sale_date,weekday,name1
 order by sale_date,weekday,name1;
 	   
+--this query shows age groups
+with tab as (
+select *,
+	   (case when age <= 25 then '16-25'
+	   when age > 25 and age < 40 then '26-40'
+	   else '40+'
+	   end) as age_category
+from customers
+order by age asc)
+
+select age_category,
+	   count(age)
+from tab
+group by age_category
+order by age_category;
+
+--this query shows customers by month
+
+with tab as (
+
+select sales_id,
+	   sale_date,
+	   to_char(sale_date, 'YYYY-MM') as date,
+	   concat(c.first_name||' '||c.last_name) as customers_name,
+	   s.quantity*p.price as income
+from sales as s
+left join customers as c
+on s.customer_id = c.customer_id
+left join products as p
+on s.product_id = p.product_id
+order by sale_date
+
+)
+
+select date,
+	   count(distinct customers_name) as total_customers,
+	   sum(income) as income
+from tab
+group by date
+;	   
