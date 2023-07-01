@@ -116,4 +116,41 @@ select date,
 	   sum(income) as income
 from tab
 group by date
-;	   
+;
+
+--this query shows first special offer customers
+
+with tab as (
+select c.customer_id,
+	   concat (c.first_name||' '||c.last_name) as customer,
+	   sale_date,
+	   p.name,
+	   price,
+	   concat(e.first_name||' '||e.last_name) as seller
+from sales as s
+left join customers as c 
+	on s.customer_id = c.customer_id
+left join products as p
+	on s.product_id = p.product_id
+left join employees as e
+	on s.sales_person_id = e.employee_id
+order by customer_id, sale_date
+), tab2 as (
+
+select customer_id,
+	   customer,
+	   sale_date,
+	   seller,
+	   first_value (price) over (partition by customer) as f_v,
+	   first_value (sale_date) over (partition by customer order by sale_date) as s_d
+from tab
+order by customer_id, sale_date
+)
+select distinct customer_id,
+	   customer,
+	   s_d as sale_date,
+	   seller
+from tab2
+where f_v = 0
+;
+	   
