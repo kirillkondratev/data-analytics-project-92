@@ -81,7 +81,7 @@ order by sale_date,weekday,name1;
 with tab as (
 select *,
 	   (case when age <= 25 then '16-25'
-	   when age > 25 and age < 40 then '26-40'
+	   when age > 25 and age <= 40 then '26-40'
 	   else '40+'
 	   end) as age_category
 from customers
