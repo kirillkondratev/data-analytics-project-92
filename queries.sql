@@ -44,18 +44,15 @@ from sales as s
 	left join employees as e 
 	on s.sales_person_id = e.employee_id
 order by sales_person_id
-), tab2 as(
+)
 
 select distinct name1 as name,
 	   round(avg(income)) as average_income
 from tab
 group by name1
-order by average_income desc 
-limit 10
-)
-select * from tab2
-order by average_income asc
-;
+order by average_income asc 
+limit 10;
+
 
 --this query counts day of the week income
 with tab as (
