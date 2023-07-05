@@ -57,7 +57,7 @@ order by average_income)
 
 select *
 from tab3
-where average_income < (select avg(income) from tab)
+where average_income > (select avg(income) from tab)
 ;
 
 
