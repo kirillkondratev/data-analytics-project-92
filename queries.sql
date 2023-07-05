@@ -44,14 +44,21 @@ from sales as s
 	left join employees as e 
 	on s.sales_person_id = e.employee_id
 order by sales_person_id
-)
-
-select distinct name1 as name,
-	   round(avg(income)) as average_income
+), tab2 as(
+	select avg(income) as avg_gen 
+	from tab
+),
+tab3 as (
+	select distinct name1 as name,
+	       round(avg(income)) as average_income
 from tab
 group by name1
-order by average_income asc 
-limit 10;
+order by average_income)
+
+select *
+from tab3
+where average_income < (select avg(income) from tab)
+;
 
 
 --this query counts day of the week income
