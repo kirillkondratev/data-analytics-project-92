@@ -81,7 +81,7 @@ order by sale_date)
 
 select name1 as name,
 	   weekday,
-	   sum(income)
+	   round(sum(income)) as income
 from tab
 group by day_number,weekday,name1
 order by day_number,name1; 
