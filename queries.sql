@@ -68,6 +68,7 @@ select sales_id,
 	   p.price,
 	   quantity*price as income,
 	   sale_date,
+	   extract (isodow from sale_date) as day_number,
 	   to_char(sale_date,'day') as weekday,
 	   s.product_id,
 	   p.name
@@ -82,9 +83,9 @@ select name1 as name,
 	   weekday,
 	   sum(income)
 from tab
-group by sale_date,weekday,name1
-order by sale_date,weekday,name1;
-	   
+group by day_number,weekday,name1
+order by day_number,name1; 
+   
 --this query shows age groups
 with tab as (
 select *,
