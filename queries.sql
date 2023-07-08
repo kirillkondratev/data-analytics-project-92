@@ -154,11 +154,12 @@ select customer_id,
 from tab
 order by customer_id, sale_date
 )
-select distinct customer_id,
-	   customer,
+select distinct on 
+	   (customer) customer,
 	   s_d as sale_date,
 	   seller
 from tab2
 where f_v = 0
+order by customer
 ;
 	   
