@@ -7,7 +7,7 @@ from customers
 select 
 	   concat(e.first_name||' '||e.last_name) as name,
 	   count(s.sales_id) as operations,
-	   round(sum(quantity*price)) as income
+	   floor(sum(quantity*price)) as income
 from sales as s
 	left join products as p 
 	on s.product_id = p.product_id
@@ -95,7 +95,7 @@ order by count
 select 
 	   to_char(sale_date, 'YYYY-MM') as date,
 	   count(distinct s.customer_id) as total_customers,
-	   sum(s.quantity*p.price) as income
+	   floor(sum(s.quantity*p.price)) as income
 from sales as s
 left join customers as c
 on s.customer_id = c.customer_id
@@ -103,6 +103,7 @@ left join products as p
 on s.product_id = p.product_id
 group by date
 ;
+
 
 --this query shows first special offer customers
 
