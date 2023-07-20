@@ -7,7 +7,7 @@ from customers
 select 
 	   concat(e.first_name||' '||e.last_name) as name,
 	   count(s.sales_id) as operations,
-	   sum(quantity*price) as income
+	   round(sum(quantity*price)) as income
 from sales as s
 	left join products as p 
 	on s.product_id = p.product_id
